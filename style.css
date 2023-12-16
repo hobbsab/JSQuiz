@@ -1,0 +1,42 @@
+body {
+  font-family: sans-serif;
+  background-color: #f9fbfd;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+div {
+  text-align: center;
+}
+
+header {
+  display: flex;
+  margin: 20px;
+}
+
+.blank {
+  color: aqua;
+  justify-content:end
+}
+
+.choicebtn {
+  margin: auto;
+  margin-top: 20px;
+  background-color: #5ca0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.choicebtn:hover {
+  background-color: #5acbff;
+}
+
+.choicebtn:active {
+  background-color: #468ec5;
