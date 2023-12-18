@@ -1,90 +1,165 @@
 // Document elements
-let password=document.getElementById("password")
-const genBtn=document.getElementById("generate")
+let choiceA=document.getElementById("choiceA")
+let choiceB=document.getElementById("choiceB")
+let choiceC=document.getElementById("choiceC")
+let choiceD=document.getElementById("choiceD")
+let highScore=document.getElementById("highscore")
+let qText=document.getElementById("questiontext")
 
-// characters in password
-let upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
-let numChars = "0123456789";
-let specialChars = "a'+,.-/:;<>=?[]_{}`~!@#$%^&*()";
+const startButton = document.getElementById("startButton");
+const choiceButtons = document.getElementsByClassName("choicebtn");
 
-//generate password
-function passGen() {
-  let passwordOptions = '';
-  let finalPassword = '';
-  // let passLength = promptLength();
-  // let upperCaseChars = 
-  // let lowerCaseChars = ("lowercase")
-  // let numChars = writePassword("numeric")
-  // let specialChars = getChoice("special")
-  // let selectCharType = false;
-  //selecting atleast 1 character type
-  let length = parseInt(
-    prompt('How many characters would you like your password to contain?')
-  )
-  if (length < 8) {
-    alert('Password length must be at least 8 characters');
-    window.location.reload(true)
+// Function to show the choice buttons and hide start button
+function showChoiceButtons() {
+  for (let i = 0; i < choiceButtons.length; i++) {
+    choiceButtons[i].style.display = "block";
   }
-  if (length > 128) {
-    alert('Password length must be less than 129 characters');
-    window.location.reload(true)
+}
+
+// Event listener for the Start button
+startButton.addEventListener("click", function() {
+  showChoiceButtons();
+});
+startButton.addEventListener("click", function() {
+  startButton.style.display = "none";
+});
+
+// Function to update the timer in the HTML
+function updateTimer() {
+  const timerElement = document.getElementById("timer");
+  timerElement.textContent = `Time left: ${timeLeft} seconds`;
+}
+
+// Set the timer to 75 seconds
+let timeLeft = 75;
+
+// Function to start the timer
+function startTimer() {
+  // Update the timer every second
+  const timer = setInterval(() => {
+    // Display the remaining time
+    console.log(`Time left: ${timeLeft} seconds`);
+    // Decrease the time by 1 second
+    timeLeft--;
+    // Check if the timer has reached 0
+    if (timeLeft === 0) {
+      // Stop the timer
+      clearInterval(timer);
+      console.log("Time's up!");
+    }
+  }, 1000);
+}
+
+// Call the startTimer() function to start the timer
+startTimer();
+  console.log('HI, test');
+
+
+  
+  const questions = [
+    {
+      question: "Commonly used data types do NOT include:",
+      answers: ["strings", "booleans", "alerts", "numbers"],
+      correctAnswer: "alerts"
+    },
+    {
+      question: "String values must be enclosed within ___ when being assigned to variables.",
+      answers: ["commas", "curly brackets", "quotes", "parentheses"],
+      correctAnswer: "quotes"
+    },
+    {
+      question: "Arrays in JavaScript can be used to store:",
+      answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+      correctAnswer: "all of the above"
+    },
+    {
+      question: "A very useful tool used during development and debugging for printing content to the debugger is::",
+      answers: ["JavaScript", "console.log", "Terminal/bash", "For loops"],
+      correctAnswer: "console.log"
+    },
+    // Add more questions and answers as needed
+  ];
+
+
+const questionContainer = document.getElementById("question-container");
+const answerButtons = document.querySelectorAll(".choicebtn");
+
+let currentQuestionIndex = 0;
+
+function displayQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
+  questionContainer.textContent = currentQuestion.question;
+
+  answerButtons.forEach((button, index) => {
+    button.textContent = currentQuestion.answers[index];
+    button.addEventListener("click", checkAnswer);
+  });
+}
+
+function checkAnswer(event) {
+  const selectedAnswer = event.target.textContent;
+  const currentQuestion = questions[currentQuestionIndex];
+
+  if (selectedAnswer === currentQuestion.correctAnswer) {
+    // Handle correct answer logic
+    // Move to the next question
+    currentQuestionIndex++;
+    displayQuestion();
+  } else {
+    // Handle incorrect answer logic
+    // Subtract time from the timer or perform other actions
   }
-  // while (selectCharType == false) {
-  //   let lowerCaseChars = getChoice ("lowercase")
-  //   let upperCaseChars = getChoice ("uppercase")
-  //   let numChars = getChoice("numeric")
-  //   let specialChars = getChoice("special")
-  // }
-
-
-  // PROMPTS
-
-  // Variable to store boolean regarding the inclusion of numbers.
-let useNumChars = confirm(
-  'Click OK to confirm including numbers.'
-);
-// Variable to store boolean regarding the inclusion of lowercase characters
-let useLowerCaseChars = confirm(
-  'Click OK to confirm including lowercase characters.'
-);
-// Variable to store boolean regarding the inclusion of uppercase characters
-let useUpperCaseChars = confirm(
-  'Click OK to confirm including uppercase characters.'
-);
-  //Variable to store boolean regarding the inclusion of special characters
-let useSpecialChars = confirm(
-  'Click OK to confirm including special characters.'
-);
-
-
-if(useNumChars) {
-  passwordOptions+= numChars
-}
-if(useLowerCaseChars) {
-  passwordOptions+= lowerCaseChars
-}
-if(useUpperCaseChars) {
-  passwordOptions+= upperCaseChars
-}
-if(useSpecialChars) {
-  passwordOptions+= specialChars
 }
 
-//useNumChars
-for (let i = 0; i <= length; i++) {
-  let randomNum = Math.floor(Math.random() * passwordOptions.length);
-  finalPassword += passwordOptions.substring(randomNum, randomNum +1);
- }
-  return finalPassword
-}
+// Start the quiz by displaying the first question
+displayQuestion();
 
-// Write password to the #password input
-function writePassword() {
-  let password = passGen();
-  let passwordText = document.querySelector("#password");
-  passwordText.innerHTML = password;
-}
 
-// Add event listener to generate button
-genBtn.addEventListener("click", writePassword);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// questions = [
+//   {
+//     question: "What is the capital of France?",
+//     choices: ["London", "Paris", "Berlin", "Madrid"],
+//     correctAnswer: "Paris"
+//   },
+//   {
+//     question: "Which programming language is used for web development?",
+//     choices: ["Java", "Python", "JavaScript", "C++"],
+//     correctAnswer: "JavaScript"
+//   },
+//   // Add more question objects here
+// ];
+
+// quizQuestions.forEach((questionObj, index) => {
+//   const questionElement = document.createElement("div");
+//   questionElement.innerHTML = `<p>${index + 1}. ${questionObj.question}</p>`;
+
+//   questionObj.options.forEach((option, optionIndex) => {
+//     const optionButton = document.createElement("button");
+//     optionButton.textContent = option;
+//     questionElement.appendChild(optionButton);
+//   });
+
+
+//   quizContainer.appendChild(questionElement);
+// });
+
+
+
+
+
+const firstQuestion = quizQuestions[0].question;
+const firstQuestionAnswers = quizQuestions[0].answers;

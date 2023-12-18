@@ -22,10 +22,10 @@ header {
 }
 
 .choicebtn {
+  display: none;
   margin: auto;
   margin-top: 20px;
   background-color: #5ca0ff;
-  display: flex;
   justify-content: center;
   align-items: center;
   color: aliceblue;
@@ -34,9 +34,36 @@ header {
   padding: 20px;
 }
 
+.startbtn {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 150%;
+  background-color: #5cff74;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
 .choicebtn:hover {
   background-color: #5acbff;
 }
 
 .choicebtn:active {
   background-color: #468ec5;
+}
+
+.startbtn:hover {
+  background-color: #73ff5a;
+}
+
+.startbtn:active {
+  background-color: #4ac546;
+}
