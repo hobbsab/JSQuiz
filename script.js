@@ -49,6 +49,7 @@ const countdown = setInterval(() => {
   if (timeRemaining < 0) {
     clearInterval(countdown);
     document.getElementById("timercount").innerHTML = "Time is up!";
+    timercount.style.color = 'red';
   }
 }, 1000);
 
@@ -56,8 +57,8 @@ const countdown = setInterval(() => {
   const questions = [
     {
       question: "What does CSS stand for?",
-      answers: ["Creative stylesheets", "Cascading stylesheets", "C", "Cat style"],
-      correctAnswer: "console.log"
+      answers: ["Creative stylesheets", "Cascading stylesheets", "C", "Cat super style"],
+      correctAnswer: "Cascading stylesheets"
     },
     {
       question: "Commonly used data types do NOT include:",
@@ -97,7 +98,9 @@ function displayQuestion() {
   });
 }
 
+// your score
 let score = 0;
+const scoreText = document.getElementById('yourscore');
 
 function checkAnswer(event) {
   const selectedAnswer = event.target.textContent;
@@ -112,7 +115,8 @@ function checkAnswer(event) {
     // move to next question
     alert('Correct!');
     score += 10;
-    console.log(score); //show score in console
+    console.log(score);
+    scoreText.textContent = score;
     currentQuestionIndex++;
     displayQuestion();
   } else {
