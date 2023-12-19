@@ -10,8 +10,8 @@
     <div class="wrapper">
       <header>
         <div id="highscore">High Score:</div>
-        <div id="blank">Timer:</div>
-        <div id="timer">time</div>
+        <div class="timer" id="countdown">Timer:</div>
+        <div class="timer" id="timercount">time</div>
       </header>
         <h1 id="question-container">1234</h1>
 
@@ -25,6 +25,12 @@
           <button id="choiceD" class="choicebtn">Choice D</button>
           </p>
         </div>
+
+        <form id="initials-form">
+          <label for="initials">Enter your initials:</label>
+          <input type="text" id="initials" name="initials" required>
+          <button type="submit">Submit</button>
+        </form>
         
     <script src="script.js"></script>
   </body>

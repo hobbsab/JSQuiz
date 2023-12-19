@@ -7,16 +7,29 @@ h1, h2 {
   text-align: center;
 }
 
+.question-container {
+  display: none;
+}
+
+form {
+  display: none
+}
+
+
 div {
   text-align: center;
 }
 
 header {
-  display: flex;
-  margin: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 100px;
+  margin-top: 30px;
 }
 
 .blank {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: aqua;
   justify-content:end
 }

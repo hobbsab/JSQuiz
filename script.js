@@ -1,10 +1,9 @@
 // Document elements
-let choiceA=document.getElementById("choiceA")
-let choiceB=document.getElementById("choiceB")
-let choiceC=document.getElementById("choiceC")
-let choiceD=document.getElementById("choiceD")
-let highScore=document.getElementById("highscore")
-let qText=document.getElementById("questiontext")
+// let choiceA=document.getElementById("choiceA")
+// let choiceB=document.getElementById("choiceB")
+// let choiceC=document.getElementById("choiceC")
+// let choiceD=document.getElementById("choiceD")
+let qText=document.getElementById("question-container")
 
 const startButton = document.getElementById("startButton");
 const choiceButtons = document.getElementsByClassName("choicebtn");
@@ -19,44 +18,47 @@ function showChoiceButtons() {
 // Event listener for the Start button
 startButton.addEventListener("click", function() {
   showChoiceButtons();
-});
-startButton.addEventListener("click", function() {
   startButton.style.display = "none";
 });
+startButton.addEventListener("click", function() {
+  qText.style.display = 'block';
+});
 
-// Function to update the timer in the HTML
-function updateTimer() {
-  const timerElement = document.getElementById("timer");
-  timerElement.textContent = `Time left: ${timeLeft} seconds`;
-}
+// Set the countdown duration in seconds
+const countdownDuration = 60;
 
-// Set the timer to 75 seconds
-let timeLeft = 75;
+// Calculate the countdown end time
+const countdownEndTime = new Date().getTime() + (countdownDuration * 1000);
 
-// Function to start the timer
-function startTimer() {
-  // Update the timer every second
-  const timer = setInterval(() => {
-    // Display the remaining time
-    console.log(`Time left: ${timeLeft} seconds`);
-    // Decrease the time by 1 second
-    timeLeft--;
-    // Check if the timer has reached 0
-    if (timeLeft === 0) {
-      // Stop the timer
-      clearInterval(timer);
-      console.log("Time's up!");
-    }
-  }, 1000);
-}
+// Update the countdown every second
+const countdown = setInterval(() => {
+  // Get the current date and time
+  const now = new Date().getTime();
 
-// Call the startTimer() function to start the timer
-startTimer();
-  console.log('HI, test');
+  // Calculate the time remaining
+  const timeRemaining = countdownEndTime - now;
 
+  // Calculate minutes and seconds
+  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+  // Display the countdown on the HTML page
+  document.getElementById("timercount").innerHTML = `${minutes}m ${seconds}s`;
+
+  // If the countdown is finished, display a message
+  if (timeRemaining < 0) {
+    clearInterval(countdown);
+    document.getElementById("timercount").innerHTML = "Time is up!";
+  }
+}, 1000);
 
   
   const questions = [
+    {
+      question: "What does CSS stand for?",
+      answers: ["Creative stylesheets", "Cascading stylesheets", "C", "Cat style"],
+      correctAnswer: "console.log"
+    },
     {
       question: "Commonly used data types do NOT include:",
       answers: ["strings", "booleans", "alerts", "numbers"],
@@ -77,7 +79,6 @@ startTimer();
       answers: ["JavaScript", "console.log", "Terminal/bash", "For loops"],
       correctAnswer: "console.log"
     },
-    // Add more questions and answers as needed
   ];
 
 
@@ -96,70 +97,50 @@ function displayQuestion() {
   });
 }
 
+let score = 0;
+
 function checkAnswer(event) {
   const selectedAnswer = event.target.textContent;
   const currentQuestion = questions[currentQuestionIndex];
 
+// check if it's last question
+  // if (currentQuestionIndex === questions.length) {
+  // endQuiz();
+
   if (selectedAnswer === currentQuestion.correctAnswer) {
-    // Handle correct answer logic
-    // Move to the next question
+    // correct answer
+    // move to next question
+    alert('Correct!');
+    score += 10;
+    console.log(score); //show score in console
     currentQuestionIndex++;
     displayQuestion();
   } else {
-    // Handle incorrect answer logic
-    // Subtract time from the timer or perform other actions
+    alert('Wrong!');
+    // wrong answer
+    currentQuestionIndex++;
+    displayQuestion();
   }
 }
 
-// Start the quiz by displaying the first question
+
+// function endQuiz()
+// entering your initials after quiz
+const initialsForm = document.getElementById('initials-form');
+initialsForm.style.display = 'block';
+
+initialsForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const initialsInput = document.getElementById('initials');
+  const initials = initialsInput.value;
+  
+//save initials?
+  console.log('your initials', initials);
+  initialsInput.value = '';
+});
+
+// start quiz
 displayQuestion();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// questions = [
-//   {
-//     question: "What is the capital of France?",
-//     choices: ["London", "Paris", "Berlin", "Madrid"],
-//     correctAnswer: "Paris"
-//   },
-//   {
-//     question: "Which programming language is used for web development?",
-//     choices: ["Java", "Python", "JavaScript", "C++"],
-//     correctAnswer: "JavaScript"
-//   },
-//   // Add more question objects here
-// ];
-
-// quizQuestions.forEach((questionObj, index) => {
-//   const questionElement = document.createElement("div");
-//   questionElement.innerHTML = `<p>${index + 1}. ${questionObj.question}</p>`;
-
-//   questionObj.options.forEach((option, optionIndex) => {
-//     const optionButton = document.createElement("button");
-//     optionButton.textContent = option;
-//     questionElement.appendChild(optionButton);
-//   });
-
-
-//   quizContainer.appendChild(questionElement);
-// });
-
-
-
-
-
-const firstQuestion = quizQuestions[0].question;
-const firstQuestionAnswers = quizQuestions[0].answers;
