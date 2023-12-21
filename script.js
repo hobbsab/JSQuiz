@@ -106,9 +106,14 @@ function checkAnswer(event) {
   const selectedAnswer = event.target.textContent;
   const currentQuestion = questions[currentQuestionIndex];
 
-// check if it's last question
-  // if (currentQuestionIndex === questions.length) {
-  // endQuiz();
+  // Check if all questions have been answered
+if (currentQuestion === questions.length) {
+  // Call the endQuiz function
+  endQuiz();
+  initialsForm.style.display = 'block';
+} else {
+  // Display the next question
+}
 
   if (selectedAnswer === currentQuestion.correctAnswer) {
     // correct answer
@@ -128,10 +133,12 @@ function checkAnswer(event) {
 }
 
 
-// function endQuiz()
+
+function endQuiz() {
+  console.log('hi');
+}
 // entering your initials after quiz
 const initialsForm = document.getElementById('initials-form');
-initialsForm.style.display = 'block';
 
 initialsForm.addEventListener('submit', function(event) {
   event.preventDefault();

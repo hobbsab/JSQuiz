@@ -7,4 +7,4 @@ Complete the timed quiz, enter your initials and get on the leaderboard.
 ## License
 MIT
 
-## Screenshot will be placed here. WIP
+## WIP. Screenshot will be placed here later.
