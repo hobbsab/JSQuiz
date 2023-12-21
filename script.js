@@ -107,17 +107,14 @@ function checkAnswer(event) {
   const currentQuestion = questions[currentQuestionIndex];
 
   // Check if all questions have been answered
-if (currentQuestion === questions.length) {
+if (currentQuestionIndex === questions.length -1) {
   // Call the endQuiz function
   endQuiz();
-  initialsForm.style.display = 'block';
 } else {
-  // Display the next question
+  // display the next question
 }
 
   if (selectedAnswer === currentQuestion.correctAnswer) {
-    // correct answer
-    // move to next question
     alert('Correct!');
     score += 10;
     console.log(score);
@@ -126,19 +123,24 @@ if (currentQuestion === questions.length) {
     displayQuestion();
   } else {
     alert('Wrong!');
-    // wrong answer
     currentQuestionIndex++;
     displayQuestion();
   }
 }
 
 
-
-function endQuiz() {
-  console.log('hi');
-}
 // entering your initials after quiz
 const initialsForm = document.getElementById('initials-form');
+
+function endQuiz() {
+  console.log('test');
+initialsForm.style.display = 'block';
+choiceButtons.style.display = 'none';
+startButton.style.display = 'none';
+countdown.style.display = 'none';
+}
+
+
 
 initialsForm.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -146,12 +148,10 @@ initialsForm.addEventListener('submit', function(event) {
   const initialsInput = document.getElementById('initials');
   const initials = initialsInput.value;
   
-//save initials?
+//save initials
   console.log('your initials', initials);
   initialsInput.value = '';
 });
 
 // start quiz
 displayQuestion();
-
-
