@@ -1,157 +1,155 @@
-// Document elements
-// let choiceA=document.getElementById("choiceA")
-// let choiceB=document.getElementById("choiceB")
-// let choiceC=document.getElementById("choiceC")
-// let choiceD=document.getElementById("choiceD")
-let qText=document.getElementById("question-container")
-
+const qText = document.getElementById("question-container");
 const startButton = document.getElementById("startButton");
 const choiceButtons = document.getElementsByClassName("choicebtn");
+const bottomText = document.getElementById("correct");
+const scoreText = document.getElementById('yourscore');
+const initialsForm = document.getElementById('initials-form');
 
-// Function to show the choice buttons and hide start button
-function showChoiceButtons() {
-  for (let i = 0; i < choiceButtons.length; i++) {
-    choiceButtons[i].style.display = "block";
-  }
-}
-
-// Event listener for the Start button
-startButton.addEventListener("click", function() {
-  showChoiceButtons();
-  startButton.style.display = "none";
-});
-startButton.addEventListener("click", function() {
-  qText.style.display = 'block';
-});
-
-// Set the countdown duration in seconds
-const countdownDuration = 60;
-
-// Calculate the countdown end time
-const countdownEndTime = new Date().getTime() + (countdownDuration * 1000);
-
-// Update the countdown every second
-const countdown = setInterval(() => {
-  // Get the current date and time
-  const now = new Date().getTime();
-
-  // Calculate the time remaining
-  const timeRemaining = countdownEndTime - now;
-
-  // Calculate minutes and seconds
-  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-  // Display the countdown on the HTML page
-  document.getElementById("timercount").innerHTML = `${minutes}m ${seconds}s`;
-
-  // If the countdown is finished, display a message
-  if (timeRemaining < 0) {
-    clearInterval(countdown);
-    document.getElementById("timercount").innerHTML = "Time is up!";
-    timercount.style.color = 'red';
-  }
-}, 1000);
-
-  
-  const questions = [
-    {
-      question: "What does CSS stand for?",
-      answers: ["Creative stylesheets", "Cascading stylesheets", "C", "Cat super style"],
-      correctAnswer: "Cascading stylesheets"
-    },
-    {
-      question: "Commonly used data types do NOT include:",
-      answers: ["strings", "booleans", "alerts", "numbers"],
-      correctAnswer: "alerts"
-    },
-    {
-      question: "String values must be enclosed within ___ when being assigned to variables.",
-      answers: ["commas", "curly brackets", "quotes", "parentheses"],
-      correctAnswer: "quotes"
-    },
-    {
-      question: "Arrays in JavaScript can be used to store:",
-      answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-      correctAnswer: "all of the above"
-    },
-    {
-      question: "A very useful tool used during development and debugging for printing content to the debugger is::",
-      answers: ["JavaScript", "console.log", "Terminal/bash", "For loops"],
-      correctAnswer: "console.log"
-    },
-  ];
-
-
-const questionContainer = document.getElementById("question-container");
-const answerButtons = document.querySelectorAll(".choicebtn");
+const questions = [
+  {
+    question: "What does CSS stand for?",
+    answers: ["Creative stylesheets", "Cascading stylesheets", "C", "Cat super style"],
+    correctAnswer: "Cascading stylesheets"
+  },
+  {
+    question: "Commonly used data types do NOT include:",
+    answers: ["strings", "booleans", "alerts", "numbers"],
+    correctAnswer: "alerts"
+  },
+  {
+    question: "String values must be enclosed within ___ when being assigned to variables.",
+    answers: ["commas", "curly brackets", "quotes", "parentheses"],
+    correctAnswer: "quotes"
+  },
+  {
+    question: "Arrays in JavaScript can be used to store:",
+    answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+    correctAnswer: "all of the above"
+  },
+  {
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answers: ["JavaScript", "console.log", "Terminal/bash", "For loops"],
+    correctAnswer: "console.log"
+  },
+];
 
 let currentQuestionIndex = 0;
+let score = 0;
 
-function displayQuestion() {
-  const currentQuestion = questions[currentQuestionIndex];
-  questionContainer.textContent = currentQuestion.question;
-
-  answerButtons.forEach((button, index) => {
-    button.textContent = currentQuestion.answers[index];
-    button.addEventListener("click", checkAnswer);
-  });
+function showChoiceButtons() {
+  for (let btn of choiceButtons) btn.style.display = "block";
 }
 
-// your score
-let score = 0;
-const scoreText = document.getElementById('yourscore');
+// Start
+startButton.addEventListener("click", function() {
+  showChoiceButtons();
+  qText.style.display = "block";
+  startButton.style.display = "none";
+  document.getElementById("main-title").style.display = "none";
+  displayQuestion();
+  startCountdown();
+});
+
+// Display question
+function displayQuestion() {
+  if (currentQuestionIndex >= questions.length) {
+    endQuiz();
+    return;
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
+  qText.textContent = currentQuestion.question;
+
+  Array.from(choiceButtons).forEach((button, index) => {
+    button.textContent = currentQuestion.answers[index];
+    button.onclick = checkAnswer;
+  });
+}
 
 function checkAnswer(event) {
   const selectedAnswer = event.target.textContent;
   const currentQuestion = questions[currentQuestionIndex];
 
-  // Check if all questions have been answered
-if (currentQuestionIndex === questions.length -1) {
-  // Call the endQuiz function
-  endQuiz();
-} else {
-  // display the next question
-}
-
   if (selectedAnswer === currentQuestion.correctAnswer) {
-    alert('Correct!');
-    score += 10;
-    console.log(score);
-    scoreText.textContent = score;
-    currentQuestionIndex++;
-    displayQuestion();
+    score++;
+    bottomText.textContent = "Correct!";
+    bottomText.style.color = "green";
   } else {
-    alert('Wrong!');
-    currentQuestionIndex++;
-    displayQuestion();
+    score--;
+    bottomText.textContent = "Wrong!";
+    bottomText.style.color = "red";
   }
+
+  scoreText.textContent = score;
+  currentQuestionIndex++;
+  displayQuestion();
 }
 
+// Countdown timer
+function startCountdown() {
+  let countdownDuration = 60; // seconds
+  const timerEl = document.getElementById("timercount");
 
-// entering your initials after quiz
-const initialsForm = document.getElementById('initials-form');
+  const interval = setInterval(() => {
+    const minutes = Math.floor(countdownDuration / 60);
+    const seconds = countdownDuration % 60;
 
+    timerEl.textContent = `${minutes}m ${seconds}s`;
+    countdownDuration--;
+
+    if (countdownDuration < 0) {
+      clearInterval(interval);
+      timerEl.textContent = "Time is up!";
+      endQuiz();
+    }
+  }, 1000);
+}
+
+// End quiz
 function endQuiz() {
-  console.log('test');
-initialsForm.style.display = 'block';
-choiceButtons.style.display = 'none';
-startButton.style.display = 'none';
-countdown.style.display = 'none';
+  initialsForm.style.display = 'block';
+  for (let btn of choiceButtons) btn.style.display = "none";
+  qText.style.display = 'none';
+  startButton.style.display = 'none';
+  bottomText.style.display = 'none';
 }
 
+// Leaderboard functions
+function saveScore(initials, score) {
+  let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  leaderboard.push({ initials, score });
+  leaderboard.sort((a, b) => b.score - a.score); // highest first
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
 
+function displayLeaderboard() {
+    const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    const scoresList = document.getElementById('scores-list');
+    if (!scoresList) return; // check if the element exists
+    scoresList.innerHTML = '';
+    leaderboard.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.initials}: ${entry.score}`;
+        scoresList.appendChild(li);
+    });
+}
 
+// Handle initials form submission
 initialsForm.addEventListener('submit', function(event) {
-  event.preventDefault();
+    event.preventDefault();
+    const initialsInput = document.getElementById('initials');
+    const initials = initialsInput.value.trim();
 
-  const initialsInput = document.getElementById('initials');
-  const initials = initialsInput.value;
-  
-//save initials
-  console.log('your initials', initials);
-  initialsInput.value = '';
+    if (!initials) {
+        alert('Initials are required!');
+        return;
+    }
+
+    saveScore(initials, score);
+    displayLeaderboard();
+    initialsInput.value = '';
+    alert('Score saved!');
 });
 
-// start quiz
-displayQuestion();
+// Initialize leaderboard (if on quiz page)
+displayLeaderboard();

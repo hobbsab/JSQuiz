@@ -1,38 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Quiz</title>
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <div id="highscore">High Score:</div>
-        <div id="yourscore">0</div>
-        <div class="timer" id="countdown">Timer:</div>
-        <div class="timer" id="timercount">1m 00s</div>
-      </header>
-        <h1 id="question-container">1234</h1>
 
-        <button id="startButton"class="startbtn">Start</button>
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 
-        <div id="choices">
-          <p>
-          <button id="choiceA" class="choicebtn">Choice A</button>
-          <button id="choiceB" class="choicebtn">Choice B</button>
-          <button id="choiceC" class="choicebtn">Choice C</button>
-          <button id="choiceD" class="choicebtn">Choice D</button>
-          </p>
+<body>
+  <div class="wrapper">
+
+    <header class="top-header">
+
+      <div class="header-left">
+        <div class="score-group">
+          <div id="highscore">High Score:</div>
+          <div id="yourscore">0</div>
         </div>
 
-        <form id="initials-form">
-          <label for="initials">Enter your initials:</label>
-          <input type="text" id="initials">
-          <button type="submit">Submit</button>
-        </form>
-        
+        <div class="timer-group">
+          <div class="timer" id="countdown">Timer:</div>
+          <div class="timer" id="timercount">1m 00s</div>
+        </div>
+      </div>
+
+      <a class="scores-right link-button" href="highscores.html">View high scores</a>
+
+    </header>
+
+    <h1 id="main-title" class="Tourney">Coding Quiz</h1>
+    <h1 id="question-container">1234</h1>
+
+    <button id="startButton" class="startbtn">Start</button>
+
+    <div id="choices">
+      <div class="choice-wrapper">
+        <button id="choiceA" class="choicebtn">Choice A</button>
+        <button id="choiceB" class="choicebtn">Choice B</button>
+        <button id="choiceC" class="choicebtn">Choice C</button>
+        <button id="choiceD" class="choicebtn">Choice D</button>
+      </div>
+
+      <p id="correct"></p>
+    </div>
+
+
+    <form id="initials-form">
+      <label for="initials">Enter your initials:</label>
+      <input type="text" id="initials">
+      <button type="submit" id="submit">Submit</button>
+    </form>
+
     <script src="script.js"></script>
-  </body>
+
+
+<footer>
+  <a href="https://github.com/hobbsab">
+    <img src="github-mark-white.png" alt="Github" style="max-width: 40px; max-height: 40px;" />
+  </a>
+
+</footer>
+</body>
+
 </html>
